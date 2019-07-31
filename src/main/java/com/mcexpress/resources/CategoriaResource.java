@@ -1,38 +1,39 @@
 package com.mcexpress.resources; // o nome Resources é utilizado para criar a classe de controlador rest
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mcexpress.domain.Categoria;
+import com.mcexpress.services.CategoriaService;
 
 @RestController
 @RequestMapping(value = "/categorias")
 public class CategoriaResource {
+	
+	@Autowired //Instanciar automaticamente
+	private CategoriaService service;
 
-	@RequestMapping(method = RequestMethod.GET)
-	public List<Categoria> listar() {
-		Categoria cat1 = new Categoria(1, "Informática");
-		Categoria cat2 = new Categoria(2, "Escritório");
-		Categoria cat3 = new Categoria(3, "Departamento Pessoal");
-		Categoria cat4 = new Categoria(4, "Recursos Humanos");
-		Categoria cat5 = new Categoria(5, "Pcp");
-		Categoria cat6 = new Categoria(6, "Financeiro");
-		Categoria cat7 = new Categoria(7, "Contabilidade");
-		Categoria cat8 = new Categoria(8, "Call Center");
+	@RequestMapping(value="/{id}", method=RequestMethod.GET)
+	public ResponseEntity<?> find(@PathVariable Integer id) { 
 		
-		List<Categoria> lista = new ArrayList<>();
-		lista.add(cat1);
-		lista.add(cat2);
-		lista.add(cat3);
-		lista.add(cat4);
-		lista.add(cat5);
-		lista.add(cat6);
-		lista.add(cat7);
-		lista.add(cat8);
-		return lista;
+			//para o spring saber que o id da url vai vim na variável é preciso uma anotação @PathVariable
+			//para sofistivcar o metodo vou retornar um responseEntity, tipo especial do Spring 
+		   	//que encapsula, armazena informações de resposta HTTP para um serviço Rest, e o ? informa que pode ser qualquer tipo.
+		
+		
+		// declaração obj recebendo o serviço buscar repassando o ID/ nesse caso nos estamos
+		
+		Categoria obj = service.buscar(id);
+		
+		//no controlador rest, acessando o serviço, e o serviço por sua vez irá acessar o repository (acesso a dados).
+
+		
+		// Vou retornar um objeto Response Entity http, complexo com várias informações do protocolo http
+		// A resposta com metodo ok(operação com sucesso), e a resposta vai ter como corpo o obj que é a categoria
+		return ResponseEntity.ok().body(obj);
 	}
 }
