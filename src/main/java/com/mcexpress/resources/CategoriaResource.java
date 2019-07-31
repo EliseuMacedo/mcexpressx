@@ -17,9 +17,22 @@ public class CategoriaResource {
 	public List<Categoria> listar() {
 		Categoria cat1 = new Categoria(1, "Informática");
 		Categoria cat2 = new Categoria(2, "Escritório");
+		Categoria cat3 = new Categoria(3, "Departamento Pessoal");
+		Categoria cat4 = new Categoria(4, "Recursos Humanos");
+		Categoria cat5 = new Categoria(5, "Pcp");
+		Categoria cat6 = new Categoria(6, "Financeiro");
+		Categoria cat7 = new Categoria(7, "Contabilidade");
+		Categoria cat8 = new Categoria(8, "Call Center");
+		
 		List<Categoria> lista = new ArrayList<>();
 		lista.add(cat1);
 		lista.add(cat2);
+		lista.add(cat3);
+		lista.add(cat4);
+		lista.add(cat5);
+		lista.add(cat6);
+		lista.add(cat7);
+		lista.add(cat8);
 		return lista;
 	}
 }
