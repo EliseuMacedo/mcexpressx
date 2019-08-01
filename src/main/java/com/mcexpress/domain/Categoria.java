@@ -9,7 +9,6 @@ import javax.persistence.Id;
 
 @Entity
 public class Categoria implements Serializable {
-	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -41,7 +40,6 @@ public class Categoria implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
 	
 	@Override
 	public int hashCode() {
