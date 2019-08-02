@@ -20,9 +20,9 @@ public class CategoriaResource {
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) { 
 		
-			//para o spring saber que o id da url vai vim na variável é preciso uma anotação @PathVariable
-			//para sofistivcar o metodo vou retornar um responseEntity, tipo especial do Spring 
-		   	//que encapsula, armazena informações de resposta HTTP para um serviço Rest, e o ? informa que pode ser qualquer tipo.
+		//para o spring saber que o id da url vai vim na variável é preciso uma anotação @PathVariable
+		//para sofistivcar o metodo vou retornar um responseEntity, tipo especial do Spring 
+	   	//que encapsula, armazena informações de resposta HTTP para um serviço Rest, e o ? informa que pode ser qualquer tipo.
 		
 		
 		// declaração obj recebendo o serviço buscar repassando o ID/ nesse caso nos estamos

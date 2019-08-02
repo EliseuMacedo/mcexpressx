@@ -9,10 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.mcexpress.domain.Categoria;
 import com.mcexpress.domain.Cidade;
+import com.mcexpress.domain.Cliente;
+import com.mcexpress.domain.Endereco;
 import com.mcexpress.domain.Estado;
 import com.mcexpress.domain.Produto;
+import com.mcexpress.domain.enums.TipoCliente;
 import com.mcexpress.repositories.CategoriaRepository;
 import com.mcexpress.repositories.CidadeRepository;
+import com.mcexpress.repositories.ClienteRepository;
+import com.mcexpress.repositories.EnderecoRepository;
 import com.mcexpress.repositories.EstadoRepository;
 import com.mcexpress.repositories.ProdutoRepository;
 
@@ -30,6 +35,10 @@ public class McexpressxApplication implements CommandLineRunner {
 	private EstadoRepository estadoRepository;
 	@Autowired
 	private CidadeRepository cidadeRepository;
+	@Autowired
+	private ClienteRepository clienteRepository;
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 	
 	
 
@@ -80,6 +89,24 @@ public class McexpressxApplication implements CommandLineRunner {
 		
 		estadoRepository.saveAll(Arrays.asList(est1,est2));
 		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
+		
+		//Instanciar Cliente
+		
+		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
+		cli1.getTelefones().addAll(Arrays.asList("27363323","93838393"));
+		
+		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 203", "Jardim", "38220834",cli1, c1);
+		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli1, c2);
+		
+		cli1.getEndereços().addAll(Arrays.asList(e1,e2));
+		
+		//salver
+		
+		clienteRepository.saveAll(Arrays.asList(cli1));
+		enderecoRepository.saveAll(Arrays.asList(e1,e2));
+		
+		
+
 		
 		
 	}
