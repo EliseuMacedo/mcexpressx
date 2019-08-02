@@ -8,8 +8,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.mcexpress.domain.Categoria;
+import com.mcexpress.domain.Cidade;
+import com.mcexpress.domain.Estado;
 import com.mcexpress.domain.Produto;
 import com.mcexpress.repositories.CategoriaRepository;
+import com.mcexpress.repositories.CidadeRepository;
+import com.mcexpress.repositories.EstadoRepository;
 import com.mcexpress.repositories.ProdutoRepository;
 
 
@@ -22,6 +26,12 @@ public class McexpressxApplication implements CommandLineRunner {
 	private CategoriaRepository catRepository;
 	@Autowired
 	private ProdutoRepository prodRepository;
+	@Autowired
+	private EstadoRepository estadoRepository;
+	@Autowired
+	private CidadeRepository cidadeRepository;
+	
+	
 
 	public static void main(String[] args) {
 		SpringApplication.run(McexpressxApplication.class, args);
@@ -54,6 +64,23 @@ public class McexpressxApplication implements CommandLineRunner {
 		//Salvar produtos e categorias no banco
 		this.catRepository.saveAll(Arrays.asList(cat1,cat2));
 		this.prodRepository.saveAll(Arrays.asList(p1,p2,p3));
+		
+		//Instanciar estados e cidades
+		
+		
+		Estado est1 = new Estado(null, "Minas Gerais");
+		Estado est2 = new Estado(null, "São Paulo");
+		
+		Cidade c1 = new Cidade(null, "Uberlândia", est1);
+		Cidade c2 = new Cidade(null, "São Paulo", est2);
+		Cidade c3 = new Cidade(null, "Campinas", est2);
+		
+		est1.getCidades().addAll(Arrays.asList(c1));
+		est2.getCidades().addAll(Arrays.asList(c2,c3));
+		
+		estadoRepository.saveAll(Arrays.asList(est1,est2));
+		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
+		
 		
 	}
 }
