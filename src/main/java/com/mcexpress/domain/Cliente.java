@@ -38,7 +38,7 @@ public class Cliente implements Serializable {
 	@OneToMany(mappedBy="cliente") //já foi mapeado pelo campo cliente
 	private List<Endereco> endereços = new ArrayList<>();
 	
-	
+	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
 	
 	//Telefone é uma entidade fraca sem ID próprio e dependente do cliente

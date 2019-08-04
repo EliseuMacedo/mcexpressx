@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
@@ -12,13 +14,17 @@ import com.mcexpress.domain.enums.EstadoPagamento;
 
 
 @Entity
-public class Pagamento implements Serializable{
+@Inheritance(strategy = InheritanceType.JOINED) //Associação da superclasse pode ser apenas uma 
+//tabela se for poucos atributos, ou uma tabela independente se for muitos atributos. Na sub classe é só colocar o @Entity
+public abstract class Pagamento implements Serializable{
+	//abstract para garantir que eu não consiga instanciar objeto do tipo de pagamento diretamente, para instanciar
+	//é preciso um new com uma das sub classes.
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id //não vou gerar automaticamente, esse id pto == pedido
 	private Integer id;
-	private EstadoPagamento estadoPagamento;
+	private Integer estadoPagamento;
 	
 	//Associação
 	@OneToOne()
@@ -32,7 +38,7 @@ public class Pagamento implements Serializable{
 	public Pagamento(Integer id, EstadoPagamento estadoPagamento, Pedido pedido) {
 		super();
 		this.id = id;
-		this.estadoPagamento = estadoPagamento;
+		this.estadoPagamento = estadoPagamento.getCod();
 		this.pedido = pedido;
 	}
 
@@ -41,7 +47,7 @@ public class Pagamento implements Serializable{
 	}
 
 	public EstadoPagamento getEstadoPagamento() {
-		return estadoPagamento;
+		return EstadoPagamento.toEnum(estadoPagamento);
 	}
 
 	public Pedido getPedido() {
@@ -53,7 +59,7 @@ public class Pagamento implements Serializable{
 	}
 
 	public void setEstadoPagamento(EstadoPagamento estadoPagamento) {
-		this.estadoPagamento = estadoPagamento;
+		this.estadoPagamento = estadoPagamento.getCod();
 	}
 
 	public void setPedido(Pedido pedido) {
