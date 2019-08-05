@@ -2,6 +2,8 @@ package com.mcexpress.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -34,14 +37,19 @@ public class Pedido implements Serializable{
 	@JoinColumn(name="endereco_entrega_id")
 	private Endereco enderecoDeEntrega;
 	
+	//A classe pedido vai ter que conhecer os itens de pedido associados a ela, o Set ajuda a garantir que não vai ter item repetido no mesmo pedido.
+	
+	@OneToMany(mappedBy = "id.pedido") //Porque no ItemPedido tem um ojeto auxiliar id que vai ter a referencia para o pedido do ItemPedidoPK
+	private Set<ItemPedido> itens = new HashSet<>();
+	
 	public Pedido() {
 	}
 
-	public Pedido(Integer id, Date instante, Cliente cliente, Endereco enderecoDeEntrega) {
+	public Pedido(Integer id, Date instante, Pagamento pagamento, Cliente cliente, Endereco enderecoDeEntrega) {
 		super();
 		this.id = id;
 		this.instante = instante;
-
+		this.pagamento = pagamento;
 		this.cliente = cliente;
 		this.enderecoDeEntrega = enderecoDeEntrega;
 	}
@@ -85,6 +93,14 @@ public class Pedido implements Serializable{
 	public void setEnderecoDeEntrega(Endereco enderecoDeEntrega) {
 		this.enderecoDeEntrega = enderecoDeEntrega;
 	}
+	
+	public Set<ItemPedido> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
+	}
 
 	@Override
 	public int hashCode() {
@@ -110,5 +126,7 @@ public class Pedido implements Serializable{
 			return false;
 		return true;
 	}
+
+
 	
 }
