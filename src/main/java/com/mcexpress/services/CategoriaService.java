@@ -2,9 +2,11 @@ package com.mcexpress.services;
 
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import com.mcexpress.domain.Categoria;
 import com.mcexpress.repositories.CategoriaRepository;
+import com.mcexpress.services.exceptions.DataIntegrityException;
 import com.mcexpress.services.exceptions.ObjectNotFountException;
 
 //anotação de serviço do springboot
@@ -35,5 +37,15 @@ public class CategoriaService {
 	public Categoria update(Categoria obj) {
 		find(obj.getId()); //chamo o find pois caso o objeto não exista ele já lança uma exceção
 		return repo.save(obj);
+	}
+	
+	public void delete(Integer id) {
+		find(id); //chamo o find pois caso o objeto não exista ele já lança uma exceção
+		try {
+			repo.deleteById(id);
+		}
+		catch(DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos");
+		}
 	}
 }
