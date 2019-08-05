@@ -26,4 +26,9 @@ public class CategoriaService {
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 																//tipo do objeto que trouxe essa exceção					
 	}
+	
+	public Categoria insert(Categoria obj) {
+		obj.setId(null); // se o id do objeto for nulo o metodo save considerará uma inserção, se não for nulo será uma atualização
+		return repo.save(obj);
+	}
 }

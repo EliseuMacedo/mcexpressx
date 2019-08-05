@@ -1,0 +1,6 @@
+Modelo de objeto Categoria
+{
+
+	"nome":"Cama mesa e banho"
+
+}
