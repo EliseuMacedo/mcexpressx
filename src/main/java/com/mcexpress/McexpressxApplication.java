@@ -116,7 +116,7 @@ public class McexpressxApplication implements CommandLineRunner {
 		clienteRepository.saveAll(Arrays.asList(cli1));
 		enderecoRepository.saveAll(Arrays.asList(e1, e2));
 
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm"); // mascara de formatação para instanciar data
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm"); // mascara de formatação para instanciar data
 
 		Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:32"), null, cli1, e1);
 		Pedido ped2 = new Pedido(null, sdf.parse("10/10/2017 19:35"), null, cli1, e2);

@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class ItemPedido implements Serializable {
 	
@@ -14,6 +16,7 @@ public class ItemPedido implements Serializable {
 	//A classe de associação não tem id próprio, o que identifica a classe são os dois objetos associados a ela
 	//A forma mais interessante é criar uma chave composta contendo o produto e o pedido  para tanto vamos criar uma clase auxiliar
 	
+	@JsonIgnore
 	@EmbeddedId //é um id embutido em um tipo auxiliar
 	private ItemPedidoPK id = new ItemPedidoPK();
 	
@@ -40,10 +43,12 @@ public class ItemPedido implements Serializable {
 	//Produto fora da minha classe itemPedido, faz mas sentido do que eu ter que acessar 
 	//primeiro o ID e depois acessar o produto e pedido
 	
+	
+	@JsonIgnore //referencia ciclica
 	public Pedido getPedido() {
 		return this.id.getPedido();
 	}
-	
+
 	public Produto getProduto() {
 		return this.id.getProduto();
 	}

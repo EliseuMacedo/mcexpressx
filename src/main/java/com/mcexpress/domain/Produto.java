@@ -15,7 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 //Entidade do JPA
@@ -31,7 +31,7 @@ public class Produto implements Serializable {
 	private Double preco;
 	
 	//Quando tem duas tabelas com muitos para muitos precisamos de uma terceira tabela que faz Join com as duas atuais (Categoria e Produto)
-	@JsonBackReference // omite a lista de categorias para cada produto pois do outro ládo já aparece os produtos da categoria.
+	@JsonIgnore // omite a lista de categorias para cada produto pois do outro ládo já aparece os produtos da categoria.
 	@ManyToMany
 	@JoinTable(name = "PRODUTO_CATEGORIA",
 	joinColumns = @JoinColumn(name = "produto_id"), //definimos a chave estrangieira de produto (produto_id)
@@ -40,6 +40,7 @@ public class Produto implements Serializable {
 	private List<Categoria> categorias = new ArrayList<>();
 	
 	//A classe pedido vai ter que conhecer os itens de pedido associados a ela, o Set ajuda a garantir que não vai ter item repetido no mesmo pedido.
+	@JsonIgnore
 	@OneToMany(mappedBy = "id.produto")
 	private Set<ItemPedido> itens = new HashSet<>();
 	
@@ -55,6 +56,7 @@ public class Produto implements Serializable {
 	}
 	
 	//Um produto conhece seus pedidos, assim posso montar um get pedido, varrendo os itens do pedido e montar uma lista de pedidos associados a esses itens,
+	@JsonIgnore
 	public List<Pedido> getPedidos(){
 		List<Pedido> listaPedidos = new ArrayList<>();
 		for(ItemPedido x: itens) {
