@@ -22,7 +22,7 @@ public class CategoriaResource {
 	private CategoriaService service;
 
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) { 
+	public ResponseEntity<Categoria> find(@PathVariable Integer id) { 
 		
 		//para o spring saber que o id da url vai vim na variável é preciso uma anotação @PathVariable
 		//para sofistivcar o metodo vou retornar um responseEntity, tipo especial do Spring 
@@ -31,7 +31,7 @@ public class CategoriaResource {
 		
 		// declaração obj recebendo o serviço buscar repassando o ID/ nesse caso nos estamos
 		
-		Categoria obj = service.buscar(id);
+		Categoria obj = service.find(id);
 		
 		//no controlador rest, acessando o serviço, e o serviço por sua vez irá acessar o repository (acesso a dados).
 
@@ -50,6 +50,13 @@ public class CategoriaResource {
 		// o fromCurrentRequest pega o URL base ex: "http://localhost:8081/categorias" e o buildAndExpand() o id do objeto Inserido.
 		
 		return ResponseEntity.created(uri).build(); 
+	}
+	
+	@RequestMapping(value="/{id}" , method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id){
 		
+		obj.setId(id); //Para garantir que a categoria a ser atualizada é realmente a que foi passada como parâmetro
+		obj = service.update(obj);
+		return ResponseEntity.noContent().build();
 	}
 }

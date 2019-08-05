@@ -18,7 +18,7 @@ public class PedidoService {
 	@Autowired
 	private PedidoRepository repo;
 
-	public Pedido buscar(Integer id) {
+	public Pedido find(Integer id) {
 		Optional<Pedido> obj = repo.findById(id);
 		
 		//Agora o meu método de serviço lança uma exceção caso o id não exista, porém o rest tem 

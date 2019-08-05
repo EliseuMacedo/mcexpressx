@@ -18,7 +18,7 @@ public class ClienteResource {
 	private ClienteService service;
 
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) { 
+	public ResponseEntity<Cliente> find(@PathVariable Integer id) { 
 		
 		//para o spring saber que o id da url vai vim na variável é preciso uma anotação @PathVariable
 		//para sofistivcar o metodo vou retornar um responseEntity, tipo especial do Spring 
@@ -27,7 +27,7 @@ public class ClienteResource {
 		
 		// declaração obj recebendo o serviço buscar repassando o ID/ nesse caso nos estamos
 		
-		Cliente obj = service.buscar(id);
+		Cliente obj = service.find(id);
 		
 		//no controlador rest, acessando o serviço, e o serviço por sua vez irá acessar o repository (acesso a dados).
 
