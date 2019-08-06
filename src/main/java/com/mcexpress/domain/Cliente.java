@@ -61,7 +61,7 @@ public class Cliente implements Serializable {
 		this.nome = nome;
 		this.email = email;
 		this.cpfOuCnpj = cpfOuCnpj;
-		this.tipoCliente = tipoCliente.getCod(); //metodo get pois estou passando o tipo inteiro.
+		this.tipoCliente = (tipoCliente == null)? null: tipoCliente.getCod(); //metodo get pois estou passando o tipo inteiro.
 	}
 	
 	//get set todos inclusive coleções
