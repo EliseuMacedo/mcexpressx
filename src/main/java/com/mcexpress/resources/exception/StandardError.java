@@ -2,7 +2,7 @@ package com.mcexpress.resources.exception;
 
 import java.io.Serializable;
 
-
+//Essa classe é auxiliar para personalizar o erro de categorias.
 public class StandardError implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
