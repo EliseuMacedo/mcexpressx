@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.mcexpress.domain.Categoria;
+import com.mcexpress.dto.CategoriaDTO;
 import com.mcexpress.repositories.CategoriaRepository;
 import com.mcexpress.services.exceptions.DataIntegrityException;
 import com.mcexpress.services.exceptions.ObjectNotFountException;
@@ -69,6 +70,11 @@ public class CategoriaService {
 		return repo.findAll(pageRequest);
 		//agora retornei o repositorio passando o pagerequest como argumento
 		
+	}
+	
+	//método auxiliar que instancia uma categoria a partir de um dto.
+	public Categoria fromDTO(CategoriaDTO objDto) {
+		return new Categoria(objDto.getId(), objDto.getNome());
 	}
 	
 }

@@ -2,6 +2,10 @@ package com.mcexpress.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
 import com.mcexpress.domain.Categoria;
 
 //Esse é um objeto que irá definir os dados que eu quero trafegar quando definir o objeto categoria
@@ -11,6 +15,9 @@ public class CategoriaDTO implements Serializable {
 //facilita gravar em arquivo ou trafegar em rede
 	
 	private Integer id;
+	
+	@NotEmpty(message="Preenchimento do nome obrigatório")
+	@Length(min=5,max=80, message="Tamanho inválido, minimo 5, máximo 80 caracteres")
 	private String nome;
 	
 	public CategoriaDTO() {

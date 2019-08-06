@@ -4,3 +4,8 @@ Modelo de objeto Categoria
 	"nome":"Cama mesa e banho"
 
 }
+
+===========================Paginação===============================================
+http://localhost:8081/categorias/page?linesPerPage=3 está ordenando por nome
+http://localhost:8081/categorias/page?linesPerPage=3&page=1 
+http://localhost:8081/categorias/page?linesPerPage=3&page=1&direction=DESC
