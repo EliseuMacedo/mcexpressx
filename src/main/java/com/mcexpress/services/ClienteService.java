@@ -42,8 +42,9 @@ public class ClienteService {
 	}
 	
 	public Cliente update(Cliente obj) {
+		//objeto monitorado pelo JPA
 		Cliente newObj = find(obj.getId()); //chamo o find pois caso o objeto não exista ele já lança uma exceção
-		updateData(newObj, obj); //atualizar o objeto newObj com base no obj
+		updateData(newObj, obj); //atualizar o objeto newObj com base no obj, isso é para usar a atualização do ClienteDTO
 		return repo.save(newObj);
 	}
 	
@@ -62,7 +63,6 @@ public class ClienteService {
 	public List<Cliente> findAll(){
 		
 		return repo.findAll();
-		
 	}
 	
 	//Vou criar uma função de paginação, vou usar o sistema do spring data chamado page
@@ -75,7 +75,8 @@ public class ClienteService {
 		
 	}
 	
-	//método auxiliar que instancia uma categoria a partir de um dto.
+	//método auxiliar que instancia uma categoria a partir de um dto, esse não instancia do banco de dados
+	//ele apenas instancia a partir dos dados que já temos
 	public Cliente fromDTO(ClienteDTO objDto) {
 		return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), null, null);
 	}

@@ -42,8 +42,10 @@ public class CategoriaService {
 	}
 	
 	public Categoria update(Categoria obj) {
-		find(obj.getId()); //chamo o find pois caso o objeto não exista ele já lança uma exceção
-		return repo.save(obj);
+		//objeto monitorado pelo JPA
+		Categoria newObj = find(obj.getId()); //chamo o find pois caso o objeto não exista ele já lança uma exceção
+		updateData(newObj, obj); //atualizar o objeto newObj com base no obj, isso é para usar a atualização do ClienteDTO
+		return repo.save(newObj);
 	}
 	
 	public void delete(Integer id) {
@@ -75,6 +77,10 @@ public class CategoriaService {
 	//método auxiliar que instancia uma categoria a partir de um dto.
 	public Categoria fromDTO(CategoriaDTO objDto) {
 		return new Categoria(objDto.getId(), objDto.getNome());
+	}
+	
+	private void updateData(Categoria newObj, Categoria obj) { //método de dentro da classe
+		newObj.setNome(obj.getNome());
 	}
 	
 }
