@@ -66,6 +66,15 @@ public class McexpressxApplication implements CommandLineRunner {
 		// Instanciar categorias
 		Categoria cat1 = new Categoria(null, "Informática");
 		Categoria cat2 = new Categoria(null, "Escritório");
+		Categoria cat3 = new Categoria(null, "Departamento Pessoal");
+		Categoria cat4 = new Categoria(null, "Diretoria");
+		Categoria cat5 = new Categoria(null, "Recursos Humanos");
+		Categoria cat6 = new Categoria(null, "Financeiro");
+		Categoria cat7 = new Categoria(null, "Contabilidade");
+		Categoria cat8 = new Categoria(null, "Call Center");
+		Categoria cat9 = new Categoria(null, "PCP");
+		Categoria cat10 = new Categoria(null, "Outros");
+		
 
 		// Instanciar Produtos
 		Produto p1 = new Produto(null, "Computador", 2000.00);
@@ -83,7 +92,7 @@ public class McexpressxApplication implements CommandLineRunner {
 		p3.getCategorias().addAll(Arrays.asList(cat1));
 
 		// Salvar produtos e categorias no banco
-		this.catRepository.saveAll(Arrays.asList(cat1, cat2));
+		this.catRepository.saveAll(Arrays.asList(cat1, cat2,cat3,cat4,cat5,cat6,cat7,cat8,cat9,cat10));
 		this.prodRepository.saveAll(Arrays.asList(p1, p2, p3));
 
 		// Instanciar estados e cidades

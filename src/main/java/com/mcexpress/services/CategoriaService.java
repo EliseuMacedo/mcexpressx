@@ -5,6 +5,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.mcexpress.domain.Categoria;
@@ -57,4 +60,15 @@ public class CategoriaService {
 		return repo.findAll();
 		
 	}
+	
+	//Vou criar uma função de paginação, vou usar o sistema do spring data chamado page
+	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
+		//para retornar uma página de dados preciso criar um objeto pageRequest
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction),orderBy);
+		
+		return repo.findAll(pageRequest);
+		//agora retornei o repositorio passando o pagerequest como argumento
+		
+	}
+	
 }
