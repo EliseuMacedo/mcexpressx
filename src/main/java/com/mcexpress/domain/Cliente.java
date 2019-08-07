@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,7 +28,9 @@ public class Cliente implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
-	private String email;
+	
+	@Column(unique = true) //Validação JPA que permite uma inserção única, nesse caso não poderá haver emails repetidos. //Chave candidata
+	private String email; //Também será feita uma validação personalizada para o email, vamos até o cliente repository
 	private String cpfOuCnpj;
 	
 	//Enumeração
