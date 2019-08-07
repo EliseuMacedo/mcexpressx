@@ -8,7 +8,9 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
 import com.mcexpress.domain.Cliente;
+import com.mcexpress.services.validation.ClienteUpdate;
 
+@ClienteUpdate //anotação de validação do email do cliente para alteração.
 public class ClienteDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
