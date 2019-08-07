@@ -2,24 +2,49 @@ package com.mcexpress.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.mcexpress.services.validation.ClienteInsert;
+
+@ClienteInsert
 public class ClienteNewDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	//vou construir um Data Transfer Object (DTO) com dados da classe cliente/endereco e pelo menos 1 telefone
 	//Pois no modelo conceitual um cliente precisa de pelo menos um endereço e um telefone.
 	
+	//Validações sintáticas
+	@NotEmpty(message="Preenchimento obrigatório")
+	@Length(min=5, max=120, message="Preenchimento de no minimo 5, no máximo 120 caracteres")
 	private String nome;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
+	@Email(message="Email inválido")
 	private String email;
+	
+	//o hibernate tem validação apra @CPF @CNPJ, 
+	//porém não é esse o caso pois os dois estão no 
+	//mesmo campo. Nesse caso vamos customizar uma anotação
+	@NotEmpty(message="Preenchimento obrigatório") 
 	private String cpfOuCnpj;
 	//Enumeração
 	private Integer tipoCliente;  //Internamente a classe vai entender tipo cliente como inteiro, 
 	//porém externamente, no construtor a classe vai exppor um tipoCliente;
 	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String logradouro;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String numero;
 	private String complemento;
 	private String bairro;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String cep;
 	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String telefone1;
 	private String telefone2;
 	private String telefone3;
