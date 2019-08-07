@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -34,7 +35,7 @@ public class Cliente implements Serializable {
 	//a classe vai exppor um tipoCliente;
 	
 	//Associações
-	@OneToMany(mappedBy="cliente") //já foi mapeado pelo campo cliente
+	@OneToMany(mappedBy="cliente", cascade = CascadeType.ALL) //já foi mapeado pelo campo cliente/ o cascade type.All diz que seu eu for apagar um cliente eu vou apagar os endereços dele também
 	private List<Endereco> enderecos = new ArrayList<>();
 	
 	@JsonIgnore

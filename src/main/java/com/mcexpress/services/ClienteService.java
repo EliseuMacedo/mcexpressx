@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mcexpress.domain.Cidade;
 import com.mcexpress.domain.Cliente;
@@ -44,6 +45,7 @@ public class ClienteService {
 																//tipo do objeto que trouxe essa exceção					
 	}
 	
+	@Transactional
 	public Cliente insert(Cliente obj) {
 		obj.setId(null); // se o id do objeto for nulo o metodo save considerará uma inserção, se não for nulo será uma atualização
 		obj = repo.save(obj);
@@ -64,7 +66,7 @@ public class ClienteService {
 			repo.deleteById(id);
 		}
 		catch(DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Não é possível excluir por que há entidades relacionadas");
+			throw new DataIntegrityException("Não é possível excluir por que há pedidos relacionados");
 		}
 		//nesse caso o se o cliente estiver associado a ele apenas endereço o endereço 
 		//pode ser excluído, mas se estiver associado pedidos ai o cliente não pode ser excluído
