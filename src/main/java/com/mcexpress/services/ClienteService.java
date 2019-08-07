@@ -10,9 +10,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.mcexpress.domain.Cidade;
 import com.mcexpress.domain.Cliente;
+import com.mcexpress.domain.Endereco;
+import com.mcexpress.domain.enums.TipoCliente;
 import com.mcexpress.dto.ClienteDTO;
+import com.mcexpress.dto.ClienteNewDTO;
 import com.mcexpress.repositories.ClienteRepository;
+import com.mcexpress.repositories.EnderecoRepository;
 import com.mcexpress.services.exceptions.DataIntegrityException;
 import com.mcexpress.services.exceptions.ObjectNotFountException;
 
@@ -25,6 +30,9 @@ public class ClienteService {
 	// serviço acessa o objeto de acesso a dados que é o repository
 	@Autowired
 	private ClienteRepository repo;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 
 	public Cliente find(Integer id) {
 		Optional<Cliente> obj = repo.findById(id);
@@ -38,7 +46,9 @@ public class ClienteService {
 	
 	public Cliente insert(Cliente obj) {
 		obj.setId(null); // se o id do objeto for nulo o metodo save considerará uma inserção, se não for nulo será uma atualização
-		return repo.save(obj);
+		obj = repo.save(obj);
+		enderecoRepository.saveAll(obj.getEnderecos()); //o Spring data salva lista também
+		return obj;
 	}
 	
 	public Cliente update(Cliente obj) {
@@ -80,6 +90,31 @@ public class ClienteService {
 	public Cliente fromDTO(ClienteDTO objDto) {
 		return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), null, null);
 	}
+	
+	
+	//sobrecarga do método fromDTO
+	public Cliente fromDTO(ClienteNewDTO objDto) {
+		
+		//preciso primeiro instanciar um cliente
+		Cliente cli = new Cliente(null, objDto.getNome(), objDto.getEmail(), objDto.getCpfOuCnpj(), TipoCliente.toEnum(objDto.getTipoCliente()));
+		//Instanciar cidade
+		Cidade cid = new Cidade(objDto.getCidadeId(), null, null);
+		//Instanciar endereço
+		Endereco end = new Endereco(null, objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento(), objDto.getBairro(), objDto.getCep(), cli, cid);
+		cli.getEnderecos().add(end); // endereço obrigatório
+		cli.getTelefones().add(objDto.getTelefone1()); //O telefone obrigatório
+		
+		if (objDto.getTelefone2()!=null) {
+			cli.getTelefones().add(objDto.getTelefone2());
+		}
+		if (objDto.getTelefone3()!=null) {
+			cli.getTelefones().add(objDto.getTelefone3());
+		}
+		return cli;
+		//Preciso converter esse tipo cliente para inteiro, pois no construtor do cliente ele recebe um tipo cliente.
+	}
+	
+	
 	
 	//Agora sim, esse objeto newObj que eu busquei ele no banco de dados com todos os dados
 	//foi atualizado apenas os atributos fornecido no metodo auxiliar abaixo.

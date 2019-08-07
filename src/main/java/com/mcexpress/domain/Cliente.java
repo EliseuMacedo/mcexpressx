@@ -35,7 +35,7 @@ public class Cliente implements Serializable {
 	
 	//Associações
 	@OneToMany(mappedBy="cliente") //já foi mapeado pelo campo cliente
-	private List<Endereco> endereços = new ArrayList<>();
+	private List<Endereco> enderecos = new ArrayList<>();
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "cliente")
@@ -88,8 +88,8 @@ public class Cliente implements Serializable {
 		return TipoCliente.toEnum(tipoCliente);
 	}
 
-	public List<Endereco> getEndereços() {
-		return endereços;
+	public List<Endereco> getEnderecos() {
+		return enderecos;
 	}
 
 	public Set<String> getTelefones() {
@@ -116,8 +116,8 @@ public class Cliente implements Serializable {
 		this.tipoCliente = tipoCliente.getCod();
 	}
 
-	public void setEndereços(List<Endereco> endereços) {
-		this.endereços = endereços;
+	public void setEnderecos(List<Endereco> endereços) {
+		this.enderecos = endereços;
 	}
 
 	public void setTelefones(Set<String> telefones) {

@@ -1,11 +1,44 @@
-Modelo de objeto Categoria
+ï»¿Modelo de objeto Categoria
 {
 
 	"nome":"Cama mesa e banho"
 
 }
 
-===========================Paginação===============================================
-http://localhost:8081/categorias/page?linesPerPage=3 está ordenando por nome
+=======================Modelo de inserÃ§Ã£o do cliente==============================
+{
+	
+	"nome": "JoÃ£o da Silva",
+
+	"email": "joao@gmail.com",
+
+	"cpfOuCnpj": "034656465000122",
+
+	"tipoCliente": 1,
+
+	"telefone1": "998765656",
+
+	"telefone2": "32165498",
+
+	"logradouro": "Rua California",
+
+	"numero": "181",
+
+	"complemento": "apto 502",
+
+	"cep": "38402852",
+
+	"cidadeId": 2
+
+}
+
+
+
+===========================Paginaï¿½ï¿½o=================================================================
+http://localhost:8081/categorias/page?linesPerPage=3 estï¿½ ordenando por nome
 http://localhost:8081/categorias/page?linesPerPage=3&page=1 
 http://localhost:8081/categorias/page?linesPerPage=3&page=1&direction=DESC
+
+======================Pacotes Bean validation =====================================
+https://docs.oracle.com/javaee/7/tutorial/bean-validation001.htm Java EE 7
+
