@@ -39,6 +39,11 @@ public class ItemPedido implements Serializable {
 		this.preco = preco;
 	}
 	
+	
+	public double getSubTotal() { //inseri o get para o JSON serializar o subtotal
+		return (preco - desconto) * quantidade;
+	}
+	
 	//vou criar os gets de pedido e produto, isso é para eu ter acesso direto ao Pedido e 
 	//Produto fora da minha classe itemPedido, faz mas sentido do que eu ter que acessar 
 	//primeiro o ID e depois acessar o produto e pedido
