@@ -1,12 +1,21 @@
 package com.mcexpress.resources; // o nome Resources é utilizado para criar a classe de controlador rest
 
+import java.net.URI;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import com.mcexpress.domain.Categoria;
 import com.mcexpress.domain.Pedido;
+import com.mcexpress.dto.CategoriaDTO;
 import com.mcexpress.services.PedidoService;
 
 @RestController
@@ -31,4 +40,18 @@ public class PedidoResource {
 		// A resposta com metodo ok(operação com sucesso), e a resposta vai ter como corpo o obj que é a categoria
 		return ResponseEntity.ok().body(obj);
 	}
+	
+	@RequestMapping(method = RequestMethod.POST) //A anotação @Valid indica que o metodo irá usar o BeanValidation na Categoria DTO
+	public ResponseEntity<Void> insert(@Valid @RequestBody Pedido obj){ //Para o objeto ser construido a partir dos dados JSON que eu enviar é preciso a anotação antes da variável
+		
+		obj = service.insert(obj);
+		//O HTTP quando estou inserindo um novo recurso há um codigo de resposta particular, o codigo adequado é 201 Created
+		//Vamos usar a chave da categoria para inserir a URL HTTP
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		// o fromCurrentRequest pega o URL base ex: "http://localhost:8081/categorias" e o buildAndExpand() o id do objeto Inserido.
+		
+		return ResponseEntity.created(uri).build(); 
+	}
+	
+	
 }

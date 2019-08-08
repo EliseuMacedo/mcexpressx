@@ -11,14 +11,17 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.mcexpress.domain.enums.EstadoPagamento;
 
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED) //Associação da superclasse pode ser apenas uma 
 //tabela se for poucos atributos, ou uma tabela independente se for muitos atributos. Na sub classe é só colocar o @Entity
-public abstract class Pagamento implements Serializable{
-	//abstract para garantir que eu não consiga instanciar objeto do tipo de pagamento diretamente, para instanciar
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type") //Essas anotações são do pacote Jackson que serializa e descerializa 
+public abstract class Pagamento implements Serializable{										  //o JSON - Nesse caso essa anotação diz que haverá um campo adicional chado : @type  e na sub classe também será definido o campo adicional                                        
+	//abstract para garantir que eu não consiga instanciar 
+	//objeto do tipo de pagamento diretamente, para instanciar
 	//é preciso um new com uma das sub classes.
 	
 	private static final long serialVersionUID = 1L;

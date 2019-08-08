@@ -31,6 +31,27 @@
 	"cidadeId": 2
 
 }
+
+==================================Objeto pedido para inserir=======================
+{
+	"cliente" : {"id" : 1},
+	"enderecoDeEntrega" : {"id" : 1},
+	"pagamento" : {
+		"numeroDeParcelas" : 10,
+		"@type": "pagamentoComCartao"
+	},
+	"itens" : [
+	    {
+		"quantidade" : 2,
+		"produto" : {"id" : 3}
+	    },
+	    {
+		"quantidade" : 1,
+		"produto" : {"id" : 1}
+	    }
+	]
+}
+
 ================================Inner Join JPQL====================================
 SELECT PRODUTO.*
 FROM PRODUTO
@@ -70,4 +91,7 @@ se não tiver pedidos eu posso excluir o endereço e telefones
 
 //Nessa operação de insert vamos inserir o cliente e os endereços dele, 
 //e para garantir que essa inserção ocorra de forma transacional é recomendável a anotação @transational
+
+=====================================================================================
+
 
