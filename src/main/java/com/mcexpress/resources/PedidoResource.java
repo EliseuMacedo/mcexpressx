@@ -22,15 +22,11 @@ public class PedidoResource {
 		//para o spring saber que o id da url vai vim na variável é preciso uma anotação @PathVariable
 		//para sofistivcar o metodo vou retornar um responseEntity, tipo especial do Spring 
 	   	//que encapsula, armazena informações de resposta HTTP para um serviço Rest, e o ? informa que pode ser qualquer tipo.
-		
-		
 		// declaração obj recebendo o serviço buscar repassando o ID/ nesse caso nos estamos
 		
 		Pedido obj = service.find(id);
 		
 		//no controlador rest, acessando o serviço, e o serviço por sua vez irá acessar o repository (acesso a dados).
-
-		
 		// Vou retornar um objeto Response Entity http, complexo com várias informações do protocolo http
 		// A resposta com metodo ok(operação com sucesso), e a resposta vai ter como corpo o obj que é a categoria
 		return ResponseEntity.ok().body(obj);

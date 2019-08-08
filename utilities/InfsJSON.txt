@@ -31,14 +31,43 @@
 	"cidadeId": 2
 
 }
+================================Inner Join JPQL====================================
+SELECT PRODUTO.*
+FROM PRODUTO
+INNER JOIN CATEGORIA cat
+ON PRODUTO.CATEGORIA_ID = cat.ID
+WHERE
+cat.NOME = 'Informática'
+
+SELECT obj FROM Produto obj WHERE obj.categoria.nome = 'Informática'
+
+=====================================================================================
+Recuperar todos produtos cujo nome contenha um dado string, e que pertença a pelo menos uma
+categoria dentre as categorias de uma data lista
 
 
 
-===========================Pagina��o=================================================================
+
+
+===========================Apagar em cascata=======================================
+@OneToMany(mappedBy="cliente", cascade = CascadeType.ALL)
+===========================Paginação===============================================
 http://localhost:8081/categorias/page?linesPerPage=3 est� ordenando por nome
 http://localhost:8081/categorias/page?linesPerPage=3&page=1 
 http://localhost:8081/categorias/page?linesPerPage=3&page=1&direction=DESC
 
+=============================URL de Produtos/Categorias======================================================
+http://localhost:8081/produtos?&nome=t&categorias=1,4
+
+
+
 ======================Pacotes Bean validation =====================================
 https://docs.oracle.com/javaee/7/tutorial/bean-validation001.htm Java EE 7
+
+Regra de negócio, eu não posso excluir um cliente que possua pedidos,
+se não tiver pedidos eu posso excluir o endereço e telefones
+
+
+//Nessa operação de insert vamos inserir o cliente e os endereços dele, 
+//e para garantir que essa inserção ocorra de forma transacional é recomendável a anotação @transational
 
