@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.mcexpress.domain.Categoria;
 import com.mcexpress.domain.Pedido;
-import com.mcexpress.dto.CategoriaDTO;
 import com.mcexpress.services.PedidoService;
 
 @RestController
